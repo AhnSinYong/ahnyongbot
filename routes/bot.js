@@ -28,6 +28,9 @@ router.post('/message', (req, res) => {
                 console.log(bitfinexUSDRes.data);
                 result = message.baseType("업비트 BTC/KRW는" + upbitKRWRes.data.tradePrice + "입니다.\n" +
                     "비트파이넥스 BTC/USD는" + bitfinexUSDRes.data[6] + "입니다.");
+                res.set({
+                    'content-type': 'application/json'
+                }).send(JSON.stringify(result));
             }));
             break;
         case message.buttons[1]:
@@ -40,17 +43,19 @@ router.post('/message', (req, res) => {
                 console.log(binanceETHRes.data.price);
                 console.log(coinnestKRWRes.data.last);
                 // result = message.baseType("바이낸스 TRX/BTC는" + binanceBTCRes.data.price + "입니다." + "바이낸스 TRX/ETH는" + binanceETHRes.data.price + "입니다." + "코인네스트 TRX/KRW는" + coinnestKRWRes.data.last + "입니다.");
-                result = message.baseType("왜 안나오냐");
+                result = message.baseType(`왜 안나오냐`);
+                res.set({
+                    'content-type': 'application/json'
+                }).send(JSON.stringify(result));
             }));
             break;
         default:
             result = message.baseType('error');
+            res.set({
+                'content-type': 'application/json'
+            }).send(JSON.stringify(result));
             break;
     }
-
-    res.set({
-        'content-type': 'application/json'
-    }).send(JSON.stringify(result));
 });
 
 module.exports = router;
