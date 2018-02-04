@@ -40,7 +40,7 @@ router.post('/message', (req, res) => {
                 console.log(binanceETHRes.data.price);
                 console.log(coinnestKRWRes.data.last);
                 // result = message.baseType("바이낸스 TRX/BTC는" + binanceBTCRes.data.price + "입니다." + "바이낸스 TRX/ETH는" + binanceETHRes.data.price + "입니다." + "코인네스트 TRX/KRW는" + coinnestKRWRes.data.last + "입니다.");
-                result = message.baseType(binanceBTCRes.data.price +":"+ binanceETHRes.data.price +":"+ coinnestKRWRes.data.last);
+                result = message.baseType(binanceBTCRes.data.price+"");
             }));
             break;
         default:
