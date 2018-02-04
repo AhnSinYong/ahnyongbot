@@ -15,22 +15,23 @@ router.post('/message', (req, res) => {
         type: req.body.type,
         content: req.body.content
     };
-    let massage = {
-        "message": {
-            "text": '응답 메세지...'
-        },
-        "keyboard": {
-            "type": "buttons",
-            "buttons": [
-                "메뉴1",
-                "메뉴2",
-                "메뉴3"
-            ]
-        }
-    };
+
+    let result;
+    switch  (_obj.content) {
+        case message.buttons[0]:
+            result = message.baseType(message.buttons[0]);
+            break;
+        case message.buttons[1]:
+            result = message.baseType(message.buttons[1]);
+            break;
+        default:
+            result = message.baseType('error');
+            break;
+    }
+
     res.set({
         'content-type': 'application/json'
-    }).send(JSON.stringify(massage));
+    }).send(JSON.stringify(result));
 });
 
 module.exports = router;
