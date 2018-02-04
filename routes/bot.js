@@ -25,11 +25,8 @@ router.post('/message', (req, res) => {
                 axios.get('https://api.bitfinex.com/v2/ticker/tBTCUSD')
             ])
                 .then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
-
-                    result = message.baseType(`
-                        업비트 BTC/KRW는 ${upbitKRWRes.tradePrice}입니다.
-                        비트파이넥스 BTC/USD는 ${bitfinexUSDRes[6]}입니다.
-                    `);
+                    result = message.baseType("업비트 BTC/KRW는" + upbitKRWRes.tradePrice + "입니다." +
+                    "비트파이넥스 BTC/USD는" + bitfinexUSDRes[6] + "입니다.");
                 }));
             break;
         case message.buttons[1]:
@@ -39,12 +36,9 @@ router.post('/message', (req, res) => {
                 axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron'),
             ])
                 .then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
-
-                    result = message.baseType(`
-                        바이낸스 TRX/BTC는 ${binanceBTCRes.price}입니다.
-                        바이낸스 TRX/ETH는 ${binanceETHRes.price}입니다.
-                        코인네스트 TRX/KRW는 ${coinnestKRWRes.last}입니다.
-                    `);
+                    result = message.baseType("바이낸스 TRX/BTC는"  + binanceBTCRes.price + "입니다." +
+                    "바이낸스 TRX/ETH는" + binanceETHRes.price + "입니다." +
+                    "코인네스트 TRX/KRW는" + coinnestKRWRes.last+ "입니다.");
                 }));
             break;
         default:

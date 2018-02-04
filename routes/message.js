@@ -1,6 +1,6 @@
 let message = {};
 
-message.buttons = ["비트코인", "트론"];
+message.buttons = ["BTC", "TRX"];
 
 message.buttonsType = () => {
     return {
