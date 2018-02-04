@@ -26,10 +26,10 @@ router.post('/message', (req, res) => {
                 axios.get('https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/1?code=CRIX.UPBIT.KRW-BTC'),
                 axios.get('https://api.bitfinex.com/v2/ticker/tBTCUSD')
             ]).then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
-                let priceInfomation = `${emoji.get('frog')}업비트 BTC/KRW
-                    ${commaNumber(upbitKRWRes.data[0].tradePrice)}
-                    비트파이넥스 BTC/USD
-                    ${commaNumber(bitfinexUSDRes.data[6])}`;
+                let priceInfomation = `${emoji.get('frog')}업비트 BTC/KRW${emoji.get('frog')}
+                    ${emoji.get('moneybag')}${commaNumber(upbitKRWRes.data[0].tradePrice)}${emoji.get('moneybag')}
+                    ${emoji.get('frog')}비트파이넥스 BTC/USD${emoji.get('frog')}
+                    ${emoji.get('moneybag')}${commaNumber(bitfinexUSDRes.data[6])}${emoji.get('moneybag')}`;
 
                 result = message.baseType(priceInfomation);
                 res.set({
@@ -43,12 +43,12 @@ router.post('/message', (req, res) => {
                 axios.get('https://api.binance.com/api/v3/ticker/price?symbol=TRXETH'),
                 axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron')
             ]).then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
-                let priceInfomation = `바이낸스 TRX/BTC
-                    ${commaNumber(binanceBTCRes.data.price)}
-                    바이낸스 TRX/ETH
-                    ${commaNumber(binanceETHRes.data.price)}
-                    코인네스트 TRX/KRW
-                    ${commaNumber(coinnestKRWRes.data.last)}`;
+                let priceInfomation = `${emoji.get('frog')}바이낸스 TRX/BTC${emoji.get('frog')}
+                    ${emoji.get('moneybag')}${commaNumber(binanceBTCRes.data.price)}${emoji.get('moneybag')}
+                    ${emoji.get('frog')}바이낸스 TRX/ETH${emoji.get('frog')}
+                    ${emoji.get('moneybag')}${commaNumber(binanceETHRes.data.price)}${emoji.get('moneybag')}
+                    ${emoji.get('frog')}코인네스트 TRX/KRW${emoji.get('frog')}
+                    ${emoji.get('moneybag')}${commaNumber(coinnestKRWRes.data.last)}${emoji.get('moneybag')}`;
 
                 result = message.baseType(priceInfomation);
                 res.set({
