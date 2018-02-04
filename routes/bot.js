@@ -25,10 +25,12 @@ router.post('/message', (req, res) => {
                 axios.get('https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/1?code=CRIX.UPBIT.KRW-BTC'),
                 axios.get('https://api.bitfinex.com/v2/ticker/tBTCUSD')
             ]).then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
-                result = message.baseType(`==업비트 BTC/KRW==
-[${commaNumber(upbitKRWRes.data[0].tradePrice)}] 원
-==비트파이넥스 BTC/USD==
-[${commaNumber(bitfinexUSDRes.data[6])}] 달라`);
+                let priceInfomation = `==업비트 BTC/KRW==
+                    [${commaNumber(upbitKRWRes.data[0].tradePrice)}] 원
+                    ==비트파이넥스 BTC/USD==
+                    [${commaNumber(bitfinexUSDRes.data[6])}] 달라`;
+
+                result = message.baseType(priceInfomation);
                 res.set({
                     'content-type': 'application/json'
                 }).send(JSON.stringify(result));
@@ -40,12 +42,14 @@ router.post('/message', (req, res) => {
                 axios.get('https://api.binance.com/api/v3/ticker/price?symbol=TRXETH'),
                 axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron')
             ]).then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
-                result = message.baseType(`==바이낸스 TRX/BTC== 
-[${commaNumber(binanceBTCRes.data.price)}] 사토시
-==바이낸스 TRX/ETH== 
-[${commaNumber(binanceETHRes.data.price)}] 이더
-==코인네스트 TRX/KRW== 
-[${commaNumber(coinnestKRWRes.data.last)}] 원`);
+                let priceInfomation = `==바이낸스 TRX/BTC== 
+                    [${commaNumber(binanceBTCRes.data.price)}] 사토시
+                    ==바이낸스 TRX/ETH== 
+                    [${commaNumber(binanceETHRes.data.price)}] 이더
+                    ==코인네스트 TRX/KRW== 
+                    [${commaNumber(coinnestKRWRes.data.last)}] 원`;
+
+                result = message.baseType(priceInfomation);
                 res.set({
                     'content-type': 'application/json'
                 }).send(JSON.stringify(result));
