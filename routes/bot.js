@@ -6,14 +6,6 @@ const commaNumber = require('comma-number');
 const emoji = require('node-emoji');
 const message = require('./message');
 
-const makeTitle = (title) => {
-    `${emoji.get('frog')} ${title} ${emoji.get('frog')}`
-};
-
-const makePrice = (price) => {
-    `${emoji.get('moneybag')} ${price} ${emoji.get('moneybag')}`
-};
-
 router.get('/keyboard', (req, res) => {
     res.set({
         'content-type': 'application/json'
@@ -34,10 +26,10 @@ router.post('/message', (req, res) => {
                 axios.get('https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/1?code=CRIX.UPBIT.KRW-BTC'),
                 axios.get('https://api.bitfinex.com/v2/ticker/tBTCUSD')
             ]).then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
-                let priceInfomation = `${makeTitle('업비트 BTC/KRW')}
-                    ${makePrice(commaNumber(upbitKRWRes.data[0].tradePrice))}
-                    ${makeTitle('비트파이넥스 BTC/USD')}
-                    ${makePrice(commaNumber(bitfinexUSDRes.data[6]))}`;
+                let priceInfomation = `${emoji.get('frog')}업비트 BTC/KRW
+                    ${commaNumber(upbitKRWRes.data[0].tradePrice)}
+                    비트파이넥스 BTC/USD
+                    ${commaNumber(bitfinexUSDRes.data[6])}`;
 
                 result = message.baseType(priceInfomation);
                 res.set({
@@ -51,12 +43,12 @@ router.post('/message', (req, res) => {
                 axios.get('https://api.binance.com/api/v3/ticker/price?symbol=TRXETH'),
                 axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron')
             ]).then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
-                let priceInfomation = `${makeTitle('바이낸스 TRX/BTC')}
-                    ${makePrice(commaNumber(binanceBTCRes.data.price))}
-                    ${makeTitle('바이낸스 TRX/ETH')}
-                    ${makePrice(commaNumber(binanceETHRes.data.price))}
-                    ${makeTitle('코인네스트 TRX/KRW')}
-                    ${makePrice(commaNumber(coinnestKRWRes.data.last))}`;
+                let priceInfomation = `바이낸스 TRX/BTC
+                    ${commaNumber(binanceBTCRes.data.price)}
+                    바이낸스 TRX/ETH
+                    ${commaNumber(binanceETHRes.data.price)}
+                    코인네스트 TRX/KRW
+                    ${commaNumber(coinnestKRWRes.data.last)}`;
 
                 result = message.baseType(priceInfomation);
                 res.set({
