@@ -6,7 +6,7 @@ const message = require('./message');
 
 router.get('/keyboard', (req, res) => {
     res.set({
-        'content-type' : 'application/json'
+        'content-type': 'application/json'
     }).send(JSON.stringify(message.buttonsType()))
 });
 
@@ -18,28 +18,26 @@ router.post('/message', (req, res) => {
     };
 
     let result;
-    switch  (_obj.content) {
+    switch (_obj.content) {
         case message.buttons[0]:
             axios.all([
                 axios.get('https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/1?code=CRIX.UPBIT.KRW-BTC'),
                 axios.get('https://api.bitfinex.com/v2/ticker/tBTCUSD')
-            ])
-                .then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
-                    result = message.baseType("업비트 BTC/KRW는" + upbitKRWRes.tradePrice + "입니다." +
+            ]).then(axios.spread((upbitKRWRes, bitfinexUSDRes) => {
+                result = message.baseType("업비트 BTC/KRW는" + upbitKRWRes.tradePrice + "입니다.\n" +
                     "비트파이넥스 BTC/USD는" + bitfinexUSDRes[6] + "입니다.");
-                }));
+            }));
             break;
         case message.buttons[1]:
             axios.all([
                 axios.get('https://api.binance.com/api/v3/ticker/price?symbol=TRXBTC'),
                 axios.get('https://api.binance.com/api/v3/ticker/price?symbol=TRXETH'),
-                axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron'),
-            ])
-                .then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
-                    result = message.baseType("바이낸스 TRX/BTC는"  + binanceBTCRes.price + "입니다." +
-                    "바이낸스 TRX/ETH는" + binanceETHRes.price + "입니다." +
-                    "코인네스트 TRX/KRW는" + coinnestKRWRes.last+ "입니다.");
-                }));
+                axios.get('https://api.coinnest.co.kr/api/pub/ticker?coin=tron')
+            ]).then(axios.spread((binanceBTCRes, binanceETHRes, coinnestKRWRes) => {
+                result = message.baseType("바이낸스 TRX/BTC는" + binanceBTCRes.price + "입니다.\n" +
+                    "바이낸스 TRX/ETH는" + binanceETHRes.price + "입니다.\n" +
+                    "코인네스트 TRX/KRW는" + coinnestKRWRes.last + "입니다.");
+            }));
             break;
         default:
             result = message.baseType('error');
