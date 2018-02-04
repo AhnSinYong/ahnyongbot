@@ -1,0 +1,13 @@
+{
+  "name": "ahnyongbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "ahnsy <ahnsy29@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
